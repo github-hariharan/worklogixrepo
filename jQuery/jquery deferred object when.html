@@ -1,0 +1,58 @@
+<html>
+<head>
+<script src=".\lib\jquery.js">
+</script>
+<script>
+function work1() {
+	var deferedObject = $.Deferred();
+	setTimeout(function(){
+			deferedObject.resolve("work 1 data");
+	}, 2000);
+	return deferedObject;
+}
+
+function work2() {
+	var deferedObject = $.Deferred();
+	setTimeout(function(){
+		deferedObject.resolve("work 2 data");
+	}, 5000);
+	return deferedObject;
+}
+
+// two functions promises resolved
+	$.when(work1(), work2()).done(function(work1data, work2data){
+		console.log("work1 data : " + work1data);
+		console.log("work2 data : " + work2data);
+	});
+
+
+function work3() {
+	var deferedObject = $.Deferred();
+	setTimeout(function(){
+			deferedObject.resolve("work 3 data");
+	}, 2000);
+	return deferedObject;
+}
+
+function work4() {
+	var deferedObject = $.Deferred();
+	setTimeout(function(){
+		deferedObject.reject("work4 err");
+	}, 5000);
+	return deferedObject;
+}
+
+// one promise resolved other promise rejected
+	$.when(work3(), work4()).done(function(work1data, work2data){
+		console.log("work1 data : " + work1data);
+		console.log("work2 data : " + work2data);
+	}).fail(function(err1,err2){
+		console.log(err1);
+		console.log(err2);
+	});
+
+</script>
+</head>
+<body>
+</body>
+</html>

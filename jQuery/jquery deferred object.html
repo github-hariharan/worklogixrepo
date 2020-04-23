@@ -1,0 +1,46 @@
+<html>
+<head>
+<script src=".\lib\jquery.js">
+</script>
+<script>
+	var deferredObject = $.Deferred();
+
+	function func1() {
+		setTimeout(asynchronousTask,3000);
+		return deferredObject.promise();
+	}
+
+	func1().done(function(){
+					console.log('asynchronousTask completed');
+					console.log(deferredObject.state());
+				})
+			.fail(function(){
+					console.log('asynchronous Task failed');
+					console.log(deferredObject.state());
+				})
+			.always(function(){
+					console.log('always method ');
+					console.log(deferredObject.state());
+			})
+			.progress(function(){
+					console.log('progress method');
+					console.log(deferredObject.state());
+			});
+
+	function asynchronousTask() {
+		console.log('Some asynchronous task ...');
+		deferredObject.resolve();
+	}
+
+
+
+
+</script>
+</head>
+
+<body>
+
+</body>
+
+
+</html>
